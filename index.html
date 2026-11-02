@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楓 作品集 ～ Game Developer Portfolio</title>
+  <meta name="description" content="ゲーム業界志望・楓のポートフォリオサイトです。">
+
+  <!-- フォント（明朝体） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 背景の桜吹雪アニメーション（script.js で描画） -->
+  <canvas id="sakura" aria-hidden="true"></canvas>
+
+  <!-- ===================== ヘッダー ===================== -->
+  <header class="site-header">
+    <a href="#top" class="logo">
+      <span class="logo-mark">楓</span>
+      <span class="logo-text">作品集</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="global-nav" class="global-nav">
+      <ul>
+        <li><a href="#about">自己紹介</a></li>
+        <li><a href="#works">制作作品</a></li>
+        <li><a href="#contact">連絡先</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===================== トップ ===================== -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-vertical">ゲームは<br>一発芸人ではない。</p>
+
+        <div class="hero-title">
+          <p class="hero-sub">Game Developer Portfolio</p>
+          <h1>楓 作品集</h1>
+          <p class="hero-en">～ Works of a Solo Game Developer</p>
+          <p class="hero-meta">プログラム ／ イラスト ／ サウンド</p>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-down">Scroll<span>▼</span></a>
+    </section>
+
+    <!-- ===================== 自己紹介 ===================== -->
+    <section id="about" class="section">
+      <h2 class="section-title"><span class="num">壱</span>自己紹介<small>About</small></h2>
+
+      <div class="about reveal">
+        <figure class="about-photo">
+          <!-- 画像は images/profile.png に置いてください -->
+          <img src="images/profile.png" alt="楓のプロフィール画像" data-fallback="PROFILE">
+        </figure>
+
+        <div class="about-body">
+          <p class="about-lead">
+            はじめまして、楓です。<br>
+            C++ / DirectX 11 でゲームを作ってる人です。
+          </p>
+          <p>
+            プログラム・イラスト・サウンドまで一人で手がける個人制作を中心に活動しています。
+            分野を問わず作ることに喜びを感じる人です。
+          </p>
+
+          <table class="profile-table">
+            <tr><th>名前</th><td>楓</td></tr>
+            <tr><th>所属</th><td>神戸電子専門学校　ゲーム開発研究学科</td></tr>
+            <tr><th>志望職種</th><td>ゲームプログラマ</td></tr>
+            <tr><th>好きなジャンル</th><td>2d縦シューティング</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 制作作品 ===================== -->
+    <section id="works" class="section">
+      <h2 class="section-title"><span class="num">弐</span>制作作品<small>Works</small></h2>
+
+      <div class="works-grid">
+
+        <!-- ▼ 作品1 ▼ ここをコピーすれば作品を増やせます -->
+        <article class="work-card reveal">
+          <div class="work-stage">No.01</div>
+          <figure class="work-thumb">
+            <img src="images/work1.png" alt="作品1のスクリーンショット" data-fallback="WORK 1">
+          </figure>
+
+          <div class="work-body">
+            <h3 class="work-title">幽世縁起</h3>
+            <p class="work-period">制作期間：2026年2月〜11月（1人／個人制作）</p>
+
+            <p class="work-desc">
+              最大９９９階層まで潜れる3Dアクションゲーム
+              敵を倒しステータスをアップしたり宝箱を漁り武器を強化し敵を無双することができます。
+            </p>
+
+            <dl class="work-info">
+              <dt>担当範囲</dt>
+              <dd>
+                <ul class="tags">
+                  <li>企画</li>
+                  <li>プログラム全般</li>
+                  <li>イラスト</li>
+                  <li>サウンド</li>
+                  <li>3Dキャラクタモデリング</li>
+                </ul>
+              </dd>
+
+              <dt>使用技術</dt>
+              <dd>
+                <ul class="tags tags-tech">
+                  <li>C++</li>
+                  <li>DirectX 11</li>
+                  <li>HLSL</li>
+                  <li>OpenSSL</li>
+                  <li>Pythonを用いたAssetのバイナリアーカイブ化</li>
+                </ul>
+              </dd>
+            </dl>
+
+            <!-- YouTube：data-youtube に動画ID（watch?v= の後ろの文字列）を入れる -->
+            <div class="work-video" data-youtube=""></div>
+
+            <div class="work-links">
+              <!-- 不要なら消してOK -->
+              
+              <a href="#" target="_blank" rel="noopener">ダウンロード</a>
+            </div>
+          </div>
+        </article>
+        <!-- ▲ 作品1 ここまで ▲ -->
+
+        <!-- 作品2 -->
+        <article class="work-card reveal">
+          <div class="work-stage">No.02</div>
+          <figure class="work-thumb">
+            <img src="images/work2.png" alt="作品2のスクリーンショット" data-fallback="WORK 2">
+          </figure>
+
+          <div class="work-body">
+            <h3 class="work-title">無機物黙示録</h3>
+            <p class="work-period">制作期間：2025年7月〜2026年1月（1人／個人制作）</p>
+
+            <p class="work-desc">
+              荒廃した世界を舞台に、
+              ウィルスに侵されたロボットと戦っていく
+              3Dアクションゲームです。
+            </p>
+
+            <dl class="work-info">
+              <dt>担当範囲</dt>
+              <dd>
+                <ul class="tags">
+                  <li>各キャラクターのステート制作</li>
+                  <li>カメラシェイク処理</li>
+                  <li>敵を配置するエディター作成</li>
+                </ul>
+              </dd>
+
+              <dt>使用技術</dt>
+              <dd>
+                <ul class="tags tags-tech">
+                  <li>C++</li>
+                  <li>DirectX 11</li>
+                  <li>json.hpp</li>
+                </ul>
+              </dd>
+            </dl>
+
+            <div class="work-video" data-youtube="https://youtu.be/xU9NfQuDgGc?si=A00A_Vi-8QuYt19k"></div>
+
+           <div class="work-links">
+              <a class="work-download" href="https://kobedenshigame.itch.io/inorganics"
+                 target="_blank" rel="noopener noreferrer">
+                ダウンロード（itch.io）
+              </a>
+            </div>
+          </div>
+        </article>
+
+      
+
+      </div>
+    </section>
+
+    <!-- ===================== 連絡先 ===================== -->
+    <section id="contact" class="section">
+      <h2 class="section-title"><span class="num">参</span>連絡先<small>Contact</small></h2>
+
+      <div class="contact reveal">
+        <p class="contact-lead">ご連絡・ご感想は下記までお気軽にどうぞ。</p>
+
+        <ul class="contact-list">
+          <li>
+            <span class="contact-label">メール</span>
+            <a href="mailto:your-address@example.com">your-address@example.com</a>
+          </li>
+          <li>
+            <span class="contact-label">GitHub</span>
+            <a href="https://github.com/" target="_blank" rel="noopener">github.com/ユーザー名</a>
+          </li>
+          <li>
+            <span class="contact-label">X</span>
+            <a href="https://x.com/" target="_blank" rel="noopener">@ユーザー名</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== フッター ===================== -->
+  <footer class="site-footer">
+    <p class="footer-update">最終更新：<span id="last-updated">2026/11/02</span></p>
+    <p>&copy; <span id="year"></span> 楓 All Rights Reserved.</p>
+  </footer>
+
+  <a href="#top" class="to-top" aria-label="ページ上部へ">▲</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
