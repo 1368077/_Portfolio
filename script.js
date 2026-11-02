@@ -8,15 +8,18 @@ document.addEventListener("DOMContentLoaded", () => {
   setupReveal();
   setupToTop();
   setupCurrentNav();
+  setupLightbox();
   setupSakura();
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
 });
 
 /* ---------- スマホ用メニューの開閉 ---------- */
 function setupNav() {
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("global-nav");
+  if (!toggle || !nav) return;
 
   const close = () => {
     nav.classList.remove("is-open");
@@ -111,6 +114,7 @@ function setupReveal() {
 /* ---------- ページ上部へ戻るボタン ---------- */
 function setupToTop() {
   const btn = document.querySelector(".to-top");
+  if (!btn) return;
   const onScroll = () => btn.classList.toggle("is-show", window.scrollY > 500);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -118,8 +122,10 @@ function setupToTop() {
 
 /* ---------- 今いるセクションのメニューを強調 ---------- */
 function setupCurrentNav() {
-  const links = document.querySelectorAll(".global-nav a");
-  const sections = [...links].map((a) => document.querySelector(a.getAttribute("href")));
+  // ページ内リンク（#から始まるもの）だけを対象にする
+  const links = [...document.querySelectorAll('.global-nav a[href^="#"]')];
+  const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+  if (!links.length) return;
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -129,6 +135,34 @@ function setupCurrentNav() {
   }, { rootMargin: "-45% 0px -50% 0px" });
 
   sections.forEach((s) => s && io.observe(s));
+}
+
+/* ---------- スクリーンショットのクリック拡大 ----------
+   .gallery の中の画像をクリックすると大きく表示します
+------------------------------------------ */
+function setupLightbox() {
+  document.querySelectorAll(".gallery").forEach((gallery) => {
+    gallery.addEventListener("click", (e) => {
+      const img = e.target.closest("img");
+      if (!img) return;
+
+      const box = document.createElement("div");
+      box.className = "lightbox";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", img.alt || "拡大画像");
+      box.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+
+      const close = () => {
+        box.remove();
+        document.removeEventListener("keydown", onKey);
+      };
+      const onKey = (ev) => { if (ev.key === "Escape") close(); };
+
+      box.addEventListener("click", close);
+      document.addEventListener("keydown", onKey);
+      document.body.appendChild(box);
+    });
+  });
 }
 
 /* ---------- 背景の桜吹雪アニメーション ----------

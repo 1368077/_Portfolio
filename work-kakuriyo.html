@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>幽世縁起 ― 開発の詳細 ｜ 楓 作品集</title>
+  <meta name="description" content="個人制作の3Dダンジョン探索アクション『幽世縁起』の開発概要と開発秘話。">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-detail">
+
+  <canvas id="sakura" aria-hidden="true"></canvas>
+
+  <!-- ===================== ヘッダー（トップページと共通） ===================== -->
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">楓</span>
+      <span class="logo-text">作品集</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="global-nav" class="global-nav">
+      <ul>
+        <li><a href="index.html#about">自己紹介</a></li>
+        <li><a href="index.html#works">制作作品</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===================== 作品ヘッダー ===================== -->
+    <section class="detail-hero">
+      <p class="breadcrumb"><a href="index.html#works">制作作品</a> ／ No.01</p>
+
+      <div class="detail-hero-inner">
+        <figure class="detail-visual">
+          <img src="images/kakuriyo01.png" alt="幽世縁起のキービジュアル" data-fallback="KEY VISUAL">
+        </figure>
+
+        <div class="detail-head">
+          <p class="detail-no">No.01</p>
+          <h1 class="detail-title">幽世縁起</h1>
+          <p class="detail-catch">最大999階層を潜る、3Dダンジョン探索アクション。</p>
+
+          <table class="detail-meta">
+            <tr><th>ジャンル</th><td>3Dダンジョン探索アクション</td></tr>
+            <tr><th>制作期間</th><td>2026年2月〜11月</td></tr>
+            <tr><th>制作人数</th><td>1人（個人制作）</td></tr>
+            <tr><th>開発環境</th><td>C++ / DirectX 11 / HLSL / KdFramework</td></tr>
+            <tr><th>対応機種</th><td>Windows</td></tr>
+          </table>
+
+          <div class="work-links">
+            <a href="#" target="_blank" rel="noopener">ダウンロード</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ページ内目次 -->
+      <nav class="toc" aria-label="ページ内目次">
+        <a href="#overview">作品概要</a>
+        <a href="#tech">技術的なこだわり</a>
+        <a href="#problems">苦労した点</a>
+        <a href="#story">開発秘話</a>
+     
+      </nav>
+    </section>
+
+    <!-- ===================== 壱 作品概要 ===================== -->
+    <section id="overview" class="section">
+      <h2 class="section-title"><span class="num">壱</span>作品概要<small>Overview</small></h2>
+
+      <div class="prose reveal">
+        <p>
+          敵を倒して手に入る「かけら」でステータスを上げ、宝箱から拾った武器を強化しながら、より深い階層を目指すダンジョン探索アクションです。
+        </p>
+        <p>
+          5階層ごとにボスが待ち構えており、通路に張られた結界はボスを倒すまで解けません。ボスの先には次の階層へ続く階段と、地上へ帰還するための狛犬が置かれています。手に入れた武器は帰還しないと持ち帰れないため、「どこまで潜るか」の判断が遊びの軸になっています。
+        </p>
+      </div>
+
+      <!-- 遊び方のポイント（3つ程度がおすすめ） -->
+      <ul class="feature-list reveal">
+        <li>
+          <h3>シンプルな操作</h3>
+          <p>行動は通常攻撃・強攻撃・回避の3つだけ。</p>
+        </li>
+        <li>
+          <h3>持ち帰りと強化</h3>
+          <p>同じ武器を再び入手するとレベルアップ。帰還して初めて自分のものになる。</p>
+        </li>
+        <li>
+          <h3>階層ごとのボス</h3>
+          <p>遠距離・中距離・近接を使い分けるボスが、5階層ごとに立ちはだかる。</p>
+        </li>
+      </ul>
+
+      <!-- プレイ動画：data-youtube に動画ID か URL -->
+      <div class="detail-video reveal">
+        <div class="work-video" data-youtube=""></div>
+      </div>
+
+      <!-- スクリーンショット（クリックで拡大）。枚数は自由に増減OK -->
+      <div class="gallery reveal">
+        <img src="images/kakuriyo02.png" alt="スクリーンショット1" data-fallback="SS 1">
+        <img src="images/kakuriyo03.png" alt="スクリーンショット2" data-fallback="SS 2">
+        <img src="images/kakuriyo04.png" alt="スクリーンショット3" data-fallback="SS 3">
+      </div>
+    </section>
+
+    <!-- ===================== 弐 技術的なこだわり ===================== -->
+    <section id="tech" class="section">
+      <h2 class="section-title"><span class="num">弐</span>技術的なこだわり<small>Technical Points</small></h2>
+
+      <!-- ▼ こだわり1つ分 ▼ ここをコピーで増やせます -->
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/kakuriyo_point1.png" alt="部屋生成の図" data-fallback="POINT 1">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 01</p>
+          <h3>データ駆動の階層生成</h3>
+          <p>
+            部屋と敵の構成はJSONで管理し、階層ごとに部屋データと敵データのパスをランダムに抽選して、ファクトリー経由で生成しています。同じ部屋が連続しないように直前の部屋IDを保持し、特定の階層だけ部屋を固定できる仕組みも用意しました。
+          </p>
+          <ul class="tags tags-tech">
+            <li>JSON</li><li>Factory パターン</li><li>RoomManager</li>
+          </ul>
+        </div>
+      </article>
+      <!-- ▲ こだわり1つ分 ここまで ▲ -->
+
+    
+
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/kakuriyo_point2.png" alt="攻撃の手触りの演出" data-fallback="POINT 3">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 02</p>
+          <h3>攻撃の手触り</h3>
+          <p>
+            ヒットスロー・カメラシェイク・ノックバックを組み合わせて、攻撃が当たったときの気持ちよさを作っています。連続攻撃の「ラッシュ」中はスローとグレースケールを重ね、画面全体で特別な時間を演出しました。
+          </p>
+          <ul class="tags tags-tech">
+            <li>ヒットスロー</li><li>カメラシェイク</li><li>ポストエフェクト</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/kakuriyo_point3.png" alt="自作エディタ" data-fallback="POINT 4">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 03</p>
+          <h3>自作エディタとアセット管理</h3>
+          <p>
+            ステージ配置や敵ステータスはImGuiで作った自作エディタで編集できます。
+            このEditorはimguiの処理を書くようのfunctionのリストで管理しておりObjectのような挙動でEditorがつくれます。
+            アセットはPythonで1つのバイナリファイルにまとめ、ゲーム側ではメモリから直接読み込む形にしています。
+          </p>
+          <ul class="tags tags-tech">
+            <li>ImGui</li><li>Python</li><li>OpenSSL</li>
+          </ul>
+        </div>
+      </article>
+
+ 
+    </section>
+
+    <!-- ===================== 参 苦労した点 ===================== -->
+    <section id="problems" class="section">
+      <h2 class="section-title"><span class="num">参</span>苦労した点<small>Problems &amp; Solutions</small></h2>
+
+     
+    <div class="problem reveal">
+        <h3>glTFのUVスケールが2重にかかる</h3>
+        <dl>
+          <dt class="p-issue">課題</dt>
+          <dd>Unreal Engineから書き出したglTFモデルを読み込むと、テクスチャのタイリングが想定より細かくなり、模様が縮んで表示された。</dd>
+          <dt class="p-cause">原因</dt>
+          <dd>UVのスケールが KHR_texture_transform 拡張に入っているのに加えて、頂点のUVにもすでに反映されていた。そのため読み込み時にもう一度スケールを掛けてしまい、2重に適用されていた。</dd>
+          <dt class="p-solve">解決</dt>
+          <dd>UV変換を適用するのを1か所にまとめ、2重に掛からないように修正した。あわせて TEXCOORD_1 の扱いも見直し、エクスポーターごとの書き出し方の違いを意識するようになった。</dd>
+        </dl>
+      </div>
+      <!-- ▲ 1件分 ここまで ▲ -->
+    <div class="problem reveal">
+        <h3>デバッグビルドでFPSが重くなる</h3>
+        <dl>
+          <dt class="p-issue">課題</dt>
+          <dd>キャラクター全員がレイ判定をしていて重いけどあるていど形状通りに当たり判定したい</dd>
+          <dt class="p-cause">原因</dt>
+          <dd>キャラクター全員がレイ判定してしまっている</dd>
+          <dt class="p-solve">解決</dt>
+          <dd>Playerの座標をもとにイメージとして四角い空間を持たせその中に入っている敵だけ重力計算とコリジョンを有効化</dd>
+        </dl>
+      </div>
+      
+   
+
+    <!-- ===================== 肆 開発秘話 ===================== -->
+   
+    <section id="story" class="section">
+      <h2 class="section-title"><span class="num">肆</span>開発秘話<small>Behind the Scenes</small></h2>
+
+      <div class="story reveal">
+        <h3>タイトルが変わった話</h3>
+        <p>
+          最初は『黄泉之廻廊』というタイトルで作っていましたが、制作途中で『幽世縁起』に変更しました。
+          廻廊は閉鎖的な空間をイメージしてしまい開放的な空間にそぐわないと思い変えました。
+          黄泉比良坂の中身であるという設定やAssetだったらそのままの名前でした。
+        </p>
+
+        <h3>デバッグ機能の元ネタ</h3>
+        <p>
+          エディタの考え方は『Hollow Knight』のデバッグ機能を参考にしています。Unityのインスペクターのような汎用的な仕組みはあえて作らず、「必要になったら、そのオブジェクト用のGUIを作る」方針にしたことで、限られた時間でもゲーム本体のボリュームを優先できました。
+        </p>
+
+        <h3>好きなゲームから学んだこと</h3>
+        <p>
+          アセットをまとめるデータ形式は『東方紅魔郷』のデータ構造から、タイトル画面の波紋シェーダーは『東方獣王園』から着想を得ています。好きな作品の「中身」を想像しながら作るのが、一番勉強になりました。
+          ZUNさんになることだけを考え作品に労力を注ぎました。
+        </p>
+
+        <h3>音づくり</h3>
+        <p>
+          効果音は９割自作です。制作途中の夏には、作曲の練習と並行しながら開発を続けmidiキーボードでの生演奏にストリングスやコーラスを付け足す感じでタイトル曲が完成しました。
+        </p>
+      </div>
+    </section>
+
+
+
+    <!-- ===================== 前後の作品 ===================== -->
+    <nav class="work-pager" aria-label="作品の移動">
+      <a class="pager-back" href="index.html#works">作品一覧へ戻る</a>
+      <a class="pager-next" href="work-mukibutsu.html"><small>次の作品</small>無機物黙示録</a>
+    </nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> 楓 All Rights Reserved.</p>
+  </footer>
+
+  <a href="#top" class="to-top" aria-label="ページ上部へ">▲</a>
+
+  <script src="script.js"></script>
+</body>
+</html>

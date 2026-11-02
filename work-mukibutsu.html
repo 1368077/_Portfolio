@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>無機物黙示録 ― 開発の詳細 ｜ 楓 作品集</title>
+  <meta name="description" content="3Dアクションゲーム『無機物黙示録』の開発概要と開発秘話。">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-detail">
+
+  <canvas id="sakura" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">楓</span>
+      <span class="logo-text">作品集</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="global-nav" class="global-nav">
+      <ul>
+        <li><a href="index.html#about">自己紹介</a></li>
+        <li><a href="index.html#works">制作作品</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===================== 作品ヘッダー ===================== -->
+    <section class="detail-hero">
+      <p class="breadcrumb"><a href="index.html#works">制作作品</a> ／ No.02</p>
+
+      <div class="detail-hero-inner">
+        <figure class="detail-visual">
+          <img src="images/mukibut01.png" alt="無機物黙示録のキービジュアル" data-fallback="KEY VISUAL">
+        </figure>
+
+        <div class="detail-head">
+          <p class="detail-no">No.02</p>
+          <h1 class="detail-title">無機物黙示録</h1>
+          <p class="detail-catch">荒廃した世界で、ウィルスに侵されたロボットと戦う3Dアクション。</p>
+
+          <table class="detail-meta">
+            <tr><th>ジャンル</th><td>3Dアクション</td></tr>
+            <tr><th>制作期間</th><td>2025年7月〜2026年1月</td></tr>
+            <tr><th>制作人数</th><td>1人（個人制作）</td></tr>
+            <tr><th>開発環境</th><td>C++ / DirectX 11 / HLSL</td></tr>
+            <tr><th>対応機種</th><td>Windows</td></tr>
+          </table>
+
+          <div class="work-links">
+            <a href="https://kobedenshigame.itch.io/inorganics" target="_blank" rel="noopener noreferrer">ダウンロード（itch.io）</a>
+          </div>
+        </div>
+      </div>
+
+      <nav class="toc" aria-label="ページ内目次">
+        <a href="#overview">作品概要</a>
+        <a href="#tech">技術的なこだわり</a>
+        <a href="#problems">苦労した点</a>
+        <a href="#story">開発秘話</a>
+      </nav>
+    </section>
+
+    <!-- ===================== 壱 作品概要 ===================== -->
+    <section id="overview" class="section">
+      <h2 class="section-title"><span class="num">壱</span>作品概要<small>Overview</small></h2>
+
+      <div class="prose reveal">
+        <p>
+          荒廃した世界を舞台に、ウィルスに侵されたロボットと戦っていく3Dアクションゲームです。
+        </p>
+       
+        <p>
+          ゴーストタウンとカテドラルの2ステージを収録。ステージ内の敵をすべて倒すとクリアで、結果に応じてランクが付きます。
+        </p>
+        <p>
+          3Dを学び始めて数か月の時期に制作した作品で、「今の自分にできる全力は何か」を模索しながら作りました。
+        </p>
+      </div>
+
+      <div class="detail-video reveal">
+        <div class="work-video" data-youtube="https://youtu.be/xU9NfQuDgGc"></div>
+      </div>
+
+      <div class="gallery reveal">
+        <img src="images/mukibut02.png" alt="ボス戦の画面" data-fallback="SS 1">
+        <img src="images/mukibut03.png" alt="ステージセレクト画面" data-fallback="SS 2">
+        <img src="images/mukibut04.png" alt="タイトル画面" data-fallback="SS 3">
+      </div>
+    </section>
+
+    <!-- ===================== 弐 技術的なこだわり ===================== -->
+    <section id="tech" class="section">
+      <h2 class="section-title"><span class="num">弐</span>技術的なこだわり<small>Technical Points</small></h2>
+
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/mukibut_point1.png" alt="ImGuiで作ったエネミーエディタ" data-fallback="POINT 1">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 01</p>
+          <h3>構造体とJSONによる敵の生成・フェーズ配置エディタ</h3>
+          <p>
+            敵の種類や配置などのパラメータを構造体にまとめて std::vector で管理し、JSONから読み込んで生成しています。ステージの敵配置は「フェーズ → グループ」の単位で持たせ、ImGuiで作ったエネミーエディタから、フェーズごとに配置の追加・削除・保存・再読み込みができます。
+          </p>
+          <p>
+            本作ではファクトリーパターンを使わずに生成していますが、この仕組みをリファクタリングしてファクトリーパターンを組み込んだものが、次作『幽世縁起』の生成処理になっています。
+          </p>
+          <ul class="tags tags-tech">
+            <li>構造体 + std::vector</li><li>json.hpp</li><li>ImGui</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/mukibut_point2.png" alt="ボスとの戦闘" data-fallback="POINT 2">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 02</p>
+          <h3>テンプレートのステートマシンで敵の行動を管理</h3>
+          <p>
+            敵の行動は、ステートマシン用のテンプレートクラスで管理しています。学内のゲーム技研部の記事
+            「<a href="https://zenn.dev/kd_gamegikenblg/articles/cf0781e4235efa" target="_blank" rel="noopener">C++で汎用的な状態管理クラスを実装する方法</a>」をもとに作りました。
+          </p>
+          <p>
+            状態の持ち主をテンプレート引数で指定するので、各ステートから持ち主の敵へ安全にアクセスできます。新しい行動を追加するときも、ステートのクラスを1つ増やすだけで済みます。プレイヤー側では、踏み込みながら攻撃する動きにも挑戦しました。
+          </p>
+          <ul class="tags tags-tech">
+            <li>ステートマシン</li><li>C++ テンプレート</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/mukibut_point3.png" alt="Steamオーバーレイの実績画面" data-fallback="POINT 3">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 03</p>
+          <h3>Steam実績の実装</h3>
+          <p>
+            Steamworks SDKのサンプルプログラムを参考に、実績の解除処理を実装しました。デバッグ用に、ImGuiで実績の状態確認やリセットができる画面も用意しています。
+          </p>
+          <p class="point-result">※ リリース版には組み込んでいません</p>
+          <ul class="tags tags-tech">
+            <li>Steamworks API</li><li>Steam Input</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="point reveal">
+        <figure class="point-image">
+          <img src="images/mukibut_point4.png" alt="光が走るシェーダー" data-fallback="POINT 4">
+        </figure>
+        <div class="point-body">
+          <p class="point-no">Point 04</p>
+          <h3>光が走るシェーダー</h3>
+          <p>回路のようなロボット感を出すにはどうすればよいかUV値で光る方向を指定しかっこよくを意識して作りました。</p>
+          <ul class="tags tags-tech"><li>HLSL</li></ul>
+        </div>
+      </article>
+
+    
+    </section>
+
+    <!-- ===================== 参 苦労した点 ===================== -->
+    <section id="problems" class="section">
+      <h2 class="section-title"><span class="num">参</span>苦労した点<small>Problems &amp; Solutions</small></h2>
+
+      <div class="problem reveal">
+        <h3>Steam経由だとコントローラーが認識されない</h3>
+        <dl>
+          <dt class="p-issue">課題</dt>
+          <dd>Steamの実績処理を組み込んで起動したところ、自作の入力処理でコントローラーが正しく認識されなくなった。</dd>
+          <dt class="p-cause">原因</dt>
+          <dd>Steam Inputが有効だと、コントローラーのユーザーインデックスがSteam側で変わる。自作の処理は元の番号を前提にしていたため、入力を拾えていなかった。</dd>
+          <dt class="p-solve">学び</dt>
+          <dd>独自の入力処理を入れるなら、Steam Inputの有効・無効を判定し、それぞれに合わせたフォールバック処理を用意する必要があると学んだ。</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===================== 肆 開発秘話 ===================== -->
+    <!-- ※ 自分の言葉で書き直すのがおすすめです -->
+    <section id="story" class="section">
+      <h2 class="section-title"><span class="num">肆</span>開発秘話<small>Behind the Scenes</small></h2>
+
+      <div class="story reveal">
+        <h3>3Dを学んで数か月の「全力」</h3>
+        <p>
+          本作は、3Dを学び始めてまだ数か月の時期に作りました。できることが限られている中で「今の自分にできる全力は何か」を考え、踏み込みながら攻撃する動きなど、触って気持ちいい部分に挑戦しています。
+          爽快感という点で違和感は天敵で違和感を消す為にクロスフェードアニメーションを実装しました。
+          またプレイヤーが走るときは視野角を広げる処理を実装して爽快感を再現しました。
+        </p>
+
+        <h3>次の作品へのつながり</h3>
+        <p>
+          構造体とJSONで敵を生成する仕組みは、作っているうちに「種類が増えると分岐が膨らむ」ことに気づきました。その反省から、次作『幽世縁起』ではファクトリーパターンを組み込んだ形にリファクタリングしています。
+          ボリュームを出したい、続きが出せるなどの設計は我が子同然のような作品に一発芸人になってほしくない！！という思いやゲームとは動くだけがゲームなのかを自問自答し今の設計思想になっています。
+        </p>
+
+        <h3>リリースには入れなかったSteam対応</h3>
+        <p>
+          Steam実績はリリース版には入れていませんが、実装してみたことで、プラットフォームの機能が入力まわりのような思わぬところに影響することを知れました。
+          独自のフレームワークを作るときはGitHubでsteamブランチを作ってプラットフォームごとに作りやすい設計をしようと思いました。
+        </p>
+      </div>
+    </section>
+
+    <nav class="work-pager" aria-label="作品の移動">
+      <a class="pager-prev" href="work-kakuriyo.html"><small>前の作品</small>幽世縁起</a>
+      <a class="pager-back" href="index.html#works">作品一覧へ戻る</a>
+    </nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> 楓 All Rights Reserved.</p>
+  </footer>
+
+  <a href="#top" class="to-top" aria-label="ページ上部へ">▲</a>
+
+  <script src="script.js"></script>
+</body>
+</html>

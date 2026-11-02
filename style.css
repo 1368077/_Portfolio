@@ -723,6 +723,382 @@ ul { margin: 0; padding: 0; list-style: none; }
   .profile-table th { border-bottom: 0; }
 }
 
+/* =========================================================
+   作品カード：詳細ページへのボタン
+   ========================================================= */
+.work-links a.work-detail {
+  background: var(--red);
+  color: var(--white);
+}
+.work-links a.work-detail:hover { background: var(--red-dark); }
+
+/* =========================================================
+   作品詳細ページ（work-○○.html）
+   ========================================================= */
+.detail-hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(var(--header-h) + 32px) 20px 20px;
+}
+
+.breadcrumb {
+  margin: 0 0 20px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+}
+
+.detail-hero-inner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.detail-visual {
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--white);
+  border-top: 4px solid var(--red);
+  box-shadow: 0 6px 22px rgba(42, 36, 32, 0.14);
+}
+
+.detail-visual img { width: 100%; height: 100%; object-fit: cover; }
+
+.detail-no {
+  display: inline-block;
+  margin: 0;
+  padding: 1px 12px;
+  background: var(--ink);
+  color: #ffd9a0;
+  font-size: 0.75rem;
+  font-style: italic;
+  letter-spacing: 0.2em;
+}
+
+.detail-title {
+  margin: 8px 0 6px;
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  color: var(--red);
+}
+
+.detail-catch {
+  margin: 0 0 18px;
+  font-family: var(--font-title);
+  color: var(--ink-soft);
+}
+
+.detail-meta {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: rgba(255, 253, 248, 0.8);
+}
+
+.detail-meta th,
+.detail-meta td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--paper-dark);
+  text-align: left;
+  vertical-align: top;
+}
+
+.detail-meta th {
+  width: 6.5em;
+  color: var(--red-dark);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ページ内目次 */
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 14px 0;
+  border-top: 1px solid var(--paper-dark);
+  border-bottom: 1px solid var(--paper-dark);
+}
+
+.toc a {
+  padding: 4px 14px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--paper-dark);
+  background: var(--white);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.toc a:hover { border-color: var(--red); color: var(--red); }
+
+.page-detail .section { padding-top: 70px; padding-bottom: 50px; }
+
+/* 文章ブロック */
+.prose { max-width: 780px; }
+.prose p { margin: 0 0 1em; }
+
+/* 遊びのポイント */
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 28px 0 36px;
+}
+
+.feature-list li {
+  padding: 18px 20px;
+  background: var(--white);
+  border-left: 4px solid var(--red);
+  box-shadow: 0 3px 12px rgba(42, 36, 32, 0.06);
+}
+
+.feature-list h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  color: var(--red-dark);
+}
+
+.feature-list p { margin: 0; font-size: 0.92rem; }
+
+.detail-video { max-width: 860px; margin: 0 auto 28px; }
+
+/* ギャラリー */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.gallery img,
+.gallery .img-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  min-height: 0;
+}
+
+.gallery img {
+  cursor: zoom-in;
+  border: 1px solid var(--paper-dark);
+  transition: opacity 0.2s;
+}
+
+.gallery img:hover { opacity: 0.85; }
+
+/* 拡大表示 */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(20, 16, 14, 0.88);
+  cursor: zoom-out;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 90vh;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* 技術的なこだわり */
+.point {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 36px;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.point:nth-of-type(even) .point-image { order: 2; }
+
+.point-image {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--paper-dark);
+}
+
+.point-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.point-no {
+  margin: 0;
+  font-size: 0.75rem;
+  font-style: italic;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+}
+
+.point-body h3 {
+  margin: 2px 0 10px;
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  color: var(--red-dark);
+}
+
+.point-body p { margin: 0 0 12px; }
+
+.point-result {
+  display: inline-block;
+  padding: 4px 14px;
+  background: var(--paper-dark);
+  font-size: 0.9rem;
+}
+
+.point-result strong { color: var(--red); font-size: 1.05rem; }
+
+.code-block {
+  margin: 0 0 40px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  background: var(--ink);
+  color: #f3e9d6;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  border-left: 4px solid var(--red);
+}
+
+/* 苦労した点 */
+.problem {
+  margin-bottom: 24px;
+  padding: 22px 26px;
+  background: var(--white);
+  border: 1px solid var(--paper-dark);
+  box-shadow: 0 3px 12px rgba(42, 36, 32, 0.06);
+}
+
+.problem h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+}
+
+.problem dl {
+  display: grid;
+  grid-template-columns: 4.5em 1fr;
+  gap: 10px 16px;
+  margin: 0;
+}
+
+.problem dt {
+  align-self: start;
+  padding: 1px 0;
+  font-size: 0.8rem;
+  text-align: center;
+  letter-spacing: 0.15em;
+  color: var(--white);
+}
+
+.problem dd { margin: 0; font-size: 0.95rem; }
+
+.p-issue { background: var(--ink-soft); }
+.p-cause { background: var(--gold); }
+.p-solve { background: var(--red); }
+
+/* 開発秘話 */
+.story {
+  max-width: 800px;
+  padding: 32px 36px;
+  background: rgba(255, 253, 248, 0.88);
+  border-top: 2px solid var(--red);
+  border-bottom: 2px solid var(--red);
+}
+
+.story h3 {
+  margin: 28px 0 8px;
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  color: var(--red-dark);
+}
+
+.story h3:first-child { margin-top: 0; }
+.story h3::before { content: "― "; color: var(--gold); }
+.story p { margin: 0; }
+
+/* 今後の展望 */
+.future-list li {
+  position: relative;
+  padding: 10px 0 10px 1.6em;
+  border-bottom: 1px dotted var(--paper-dark);
+}
+
+.future-list li::before {
+  content: "◆";
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-size: 0.8rem;
+  top: 13px;
+}
+
+/* 前後の作品 */
+.work-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: var(--max-width);
+  margin: 20px auto 0;
+  padding: 0 20px 40px;
+}
+
+.work-pager a {
+  flex: 1;
+  padding: 14px 18px;
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--font-title);
+  border: 1px solid var(--red);
+  background: var(--white);
+  color: var(--red);
+  transition: background 0.2s, color 0.2s;
+}
+
+.work-pager a:hover { background: var(--red); color: var(--white); }
+
+.work-pager small {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+}
+
+.work-pager a:hover small { color: var(--paper); }
+
+.pager-next { text-align: right !important; }
+.pager-prev { text-align: left !important; }
+
+@media (max-width: 768px) {
+  .detail-hero { padding-top: calc(var(--header-h) + 20px); }
+  .detail-hero-inner { grid-template-columns: 1fr; gap: 24px; }
+
+  .point { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  .point:nth-of-type(even) .point-image { order: 0; }
+
+  .problem { padding: 18px 16px; }
+  .problem dl { grid-template-columns: 1fr; gap: 4px; }
+  .problem dt { justify-self: start; padding: 0 12px; margin-top: 8px; }
+
+  .story { padding: 24px 18px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  .work-pager { flex-direction: column; padding: 0 16px 32px; }
+  .pager-next, .pager-prev { text-align: center !important; }
+}
+
 /* アニメーションを減らす設定の人向け */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
