@@ -1,8 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
   <title>楓 作品集 ～ Game Developer Portfolio</title>
   <meta name="description" content="ゲーム業界志望・楓のポートフォリオサイトです。">
 
@@ -25,7 +28,10 @@
       <span class="logo-text">作品集</span>
     </a>
 
-    <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+    <button class="nav-toggle"
+            aria-label="メニューを開く"
+            aria-expanded="false"
+            aria-controls="global-nav">
       <span></span><span></span><span></span>
     </button>
 
@@ -58,12 +64,16 @@
 
     <!-- ===================== 自己紹介 ===================== -->
     <section id="about" class="section">
-      <h2 class="section-title"><span class="num">壱</span>自己紹介<small>About</small></h2>
+      <h2 class="section-title">
+        <span class="num">壱</span>自己紹介<small>About</small>
+      </h2>
 
       <div class="about reveal">
         <figure class="about-photo">
           <!-- 画像は images/profile.png に置いてください -->
-          <img src="images/profile.png" alt="楓のプロフィール画像" data-fallback="PROFILE">
+          <img src="images/profile.png"
+               alt="楓のプロフィール画像"
+               data-fallback="PROFILE">
         </figure>
 
         <div class="about-body">
@@ -71,16 +81,29 @@
             はじめまして、楓です。<br>
             C++ / DirectX 11 でゲームを作ってる人です。
           </p>
+
           <p>
             プログラム・イラスト・サウンドまで一人で手がける個人制作を中心に活動しています。
             分野を問わず作ることに喜びを感じる人です。
           </p>
 
           <table class="profile-table">
-            <tr><th>名前</th><td>楓</td></tr>
-            <tr><th>所属</th><td>神戸電子専門学校　ゲーム開発研究学科</td></tr>
-            <tr><th>志望職種</th><td>ゲームプログラマ</td></tr>
-            <tr><th>好きなジャンル</th><td>2d縦シューティング</td></tr>
+            <tr>
+              <th>名前</th>
+              <td>楓</td>
+            </tr>
+            <tr>
+              <th>所属</th>
+              <td>神戸電子専門学校　ゲーム開発研究学科</td>
+            </tr>
+            <tr>
+              <th>志望職種</th>
+              <td>ゲームプログラマ</td>
+            </tr>
+            <tr>
+              <th>好きなジャンル</th>
+              <td>2d縦シューティング</td>
+            </tr>
           </table>
         </div>
       </div>
@@ -88,20 +111,28 @@
 
     <!-- ===================== 制作作品 ===================== -->
     <section id="works" class="section">
-      <h2 class="section-title"><span class="num">弐</span>制作作品<small>Works</small></h2>
+      <h2 class="section-title">
+        <span class="num">弐</span>制作作品<small>Works</small>
+      </h2>
 
       <div class="works-grid">
 
-        <!-- ▼ 作品1 ▼ ここをコピーすれば作品を増やせます -->
+        <!-- ▼ 作品1 ▼ -->
         <article class="work-card reveal">
           <div class="work-stage">No.01</div>
+
           <figure class="work-thumb">
-            <img src="images/kakuriyo01.png" alt="作品1のスクリーンショット" data-fallback="WORK 1">
+            <img src="images/kakuriyo01.png"
+                 alt="幽世縁起のスクリーンショット"
+                 data-fallback="WORK 1">
           </figure>
 
           <div class="work-body">
             <h3 class="work-title">幽世縁起</h3>
-            <p class="work-period">制作期間：2026年2月〜11月（1人／個人制作）</p>
+
+            <p class="work-period">
+              制作期間：2026年2月〜11月（1人／個人制作）
+            </p>
 
             <p class="work-desc">
               最大９９９階層まで潜れる3Dアクションゲーム
@@ -134,28 +165,43 @@
               </dd>
             </dl>
 
-            <!-- YouTube：data-youtube に動画ID（watch?v= の後ろの文字列）を入れる -->
-            <div class="work-video" data-youtube=""></div>
+            <!-- YouTube：data-youtube に動画IDを指定 -->
+            <div class="work-video"
+                 data-youtube="LLTLWcle6-M"></div>
 
             <div class="work-links">
-              <!-- 詳細ページへのリンク -->
-              <a class="work-detail" href="work-kakuriyo.html">開発の詳細を見る</a>
-              <a href="#" target="_blank" rel="noopener">ダウンロード</a>
+              <a class="work-detail" href="work-kakuriyo.html">
+                開発の詳細を見る
+              </a>
+
+              <a class="work-download"
+                 href="https://kobedenshigame.itch.io/kakuriyoengi"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                ダウンロード（itch.io）
+              </a>
             </div>
           </div>
         </article>
         <!-- ▲ 作品1 ここまで ▲ -->
 
-        <!-- 作品2 -->
+
+        <!-- ▼ 作品2 ▼ -->
         <article class="work-card reveal">
           <div class="work-stage">No.02</div>
+
           <figure class="work-thumb">
-            <img src="images/mukibut01.png" alt="作品2のスクリーンショット" data-fallback="WORK 2">
+            <img src="images/mukibut01.png"
+                 alt="無機物黙示録のスクリーンショット"
+                 data-fallback="WORK 2">
           </figure>
 
           <div class="work-body">
             <h3 class="work-title">無機物黙示録</h3>
-            <p class="work-period">制作期間：2025年7月〜2026年1月（1人／個人制作）</p>
+
+            <p class="work-period">
+              制作期間：2025年7月〜2026年1月（1人／個人制作）
+            </p>
 
             <p class="work-desc">
               荒廃した世界を舞台に、
@@ -188,26 +234,35 @@
               </dd>
             </dl>
 
-            <div class="work-video" data-youtube="https://youtu.be/xU9NfQuDgGc?si=A00A_Vi-8QuYt19k"></div>
+            <!-- YouTube：data-youtube に動画IDを指定 -->
+            <div class="work-video"
+                 data-youtube="xU9NfQuDgGc"></div>
 
             <div class="work-links">
-              <a class="work-detail" href="work-mukibutsu.html">開発の詳細を見る</a>
-              <a class="work-download" href="https://kobedenshigame.itch.io/inorganics"
-                 target="_blank" rel="noopener noreferrer">
+              <a class="work-detail" href="work-mukibutsu.html">
+                開発の詳細を見る
+              </a>
+
+              <a class="work-download"
+                 href="https://kobedenshigame.itch.io/inorganics"
+                 target="_blank"
+                 rel="noopener noreferrer">
                 ダウンロード（itch.io）
               </a>
             </div>
           </div>
         </article>
-
-      
+        <!-- ▲ 作品2 ここまで ▲ -->
 
       </div>
     </section>
 
     <!-- ===================== 連絡先 ===================== -->
-    <!-- <section id="contact" class="section">
-      <h2 class="section-title"><span class="num">参</span>連絡先<small>Contact</small></h2>
+    <!--
+    <section id="contact" class="section">
+      <h2 class="section-title">
+        <span class="num">参</span>連絡先<small>Contact</small>
+      </h2>
 
       <div class="contact reveal">
         <p class="contact-lead">ご連絡・ご感想は下記までお気軽にどうぞ。</p>
@@ -227,13 +282,17 @@
           </li>
         </ul>
       </div>
-    </section> -->
+    </section>
+    -->
 
   </main>
 
   <!-- ===================== フッター ===================== -->
   <footer class="site-footer">
-    <p class="footer-update">最終更新：<span id="last-updated">2026/11/02</span></p>
+    <p class="footer-update">
+      最終更新：<span id="last-updated">2026/11/25</span>
+    </p>
+
     <p>&copy; <span id="year"></span> 楓 All Rights Reserved.</p>
   </footer>
 

@@ -1,3 +1,4 @@
+
 /* =========================================================
    ポートフォリオ用スクリプト
    ========================================================= */
@@ -46,6 +47,7 @@ function setupImageFallback() {
       box.innerHTML = `${img.dataset.fallback}<br><small>${img.getAttribute("src")}</small>`;
       img.replaceWith(box);
     };
+
     if (img.complete && img.naturalWidth === 0) replace();
     else img.addEventListener("error", replace, { once: true });
   });
@@ -54,8 +56,8 @@ function setupImageFallback() {
 /* ---------- YouTube 埋め込み ----------
    <div class="work-video" data-youtube="動画ID"></div>
    ・動画IDは https://www.youtube.com/watch?v=XXXXXXXXXXX の XXXXXXXXXXX 部分
-   ・URL をそのまま入れても自動でIDを取り出します
-   ・最初はサムネイルだけ表示し、クリックで再生（ページが重くならないように）
+   ・URLをそのまま入れても自動でIDを取り出します
+   ・最初はサムネイルだけ表示し、クリックで再生
 ------------------------------------------ */
 function setupYouTube() {
   document.querySelectorAll(".work-video").forEach((box) => {
@@ -74,10 +76,16 @@ function setupYouTube() {
 
     poster.addEventListener("click", () => {
       const iframe = document.createElement("iframe");
+
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
       iframe.title = "YouTube video player";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+
+      // YouTubeに埋め込み元の情報を送信する
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       iframe.allowFullscreen = true;
+
       box.replaceChildren(iframe);
     });
 
@@ -85,21 +93,28 @@ function setupYouTube() {
   });
 }
 
+/* ---------- YouTube動画IDの抽出 ---------- */
 function extractYouTubeId(value) {
   value = value.trim();
+
   if (!value) return "";
+
   if (/^[\w-]{11}$/.test(value)) return value;
+
   const m = value.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
+
   return m ? m[1] : "";
 }
 
 /* ---------- スクロールでふわっと表示 ---------- */
 function setupReveal() {
   const items = document.querySelectorAll(".reveal");
+
   if (!("IntersectionObserver" in window)) {
     items.forEach((el) => el.classList.add("is-visible"));
     return;
   }
+
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
@@ -108,6 +123,7 @@ function setupReveal() {
       }
     });
   }, { threshold: 0.12 });
+
   items.forEach((el) => io.observe(el));
 }
 
@@ -115,7 +131,9 @@ function setupReveal() {
 function setupToTop() {
   const btn = document.querySelector(".to-top");
   if (!btn) return;
+
   const onScroll = () => btn.classList.toggle("is-show", window.scrollY > 500);
+
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }
@@ -125,12 +143,16 @@ function setupCurrentNav() {
   // ページ内リンク（#から始まるもの）だけを対象にする
   const links = [...document.querySelectorAll('.global-nav a[href^="#"]')];
   const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+
   if (!links.length) return;
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
-      links.forEach((a) => a.classList.toggle("is-current", a.getAttribute("href") === "#" + e.target.id));
+
+      links.forEach((a) => {
+        a.classList.toggle("is-current", a.getAttribute("href") === "#" + e.target.id);
+      });
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
 
@@ -156,7 +178,10 @@ function setupLightbox() {
         box.remove();
         document.removeEventListener("keydown", onKey);
       };
-      const onKey = (ev) => { if (ev.key === "Escape") close(); };
+
+      const onKey = (ev) => {
+        if (ev.key === "Escape") close();
+      };
 
       box.addEventListener("click", close);
       document.addEventListener("keydown", onKey);
@@ -171,7 +196,11 @@ function setupLightbox() {
 ------------------------------------------ */
 function setupSakura() {
   const canvas = document.getElementById("sakura");
+  if (!canvas) return;
+
   const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const CONFIG = {
@@ -180,8 +209,8 @@ function setupSakura() {
     size: [10, 20],     // 花びらの大きさ（最小, 最大）
     fallSpeed: [0.4, 1.1], // 落ちる速さ
     wind: 0.6,          // 横風の強さ（マイナスで左向き）
-    alpha: [0.6, 0.95],  // 濃さ
-    colors: ["255, 183, 197", "250, 200, 210", "255, 214, 222", "240, 160, 180"], // 桜色（RGB）
+    alpha: [0.6, 0.95], // 濃さ
+    colors: ["255, 183, 197", "250, 200, 210", "255, 214, 222", "240, 160, 180"],
   };
 
   const rand = (min, max) => min + Math.random() * (max - min);
@@ -195,11 +224,11 @@ function setupSakura() {
       y: initial ? rand(-h, h) : rand(-60, -20),
       size: rand(CONFIG.size[0], CONFIG.size[1]),
       vy: rand(CONFIG.fallSpeed[0], CONFIG.fallSpeed[1]),
-      sway: rand(0, Math.PI * 2),       // 左右の揺れの位相
+      sway: rand(0, Math.PI * 2),
       swaySpeed: rand(0.01, 0.03),
-      rot: rand(0, Math.PI * 2),        // 回転
+      rot: rand(0, Math.PI * 2),
       rotSpeed: rand(-0.04, 0.04),
-      flip: rand(0, Math.PI * 2),       // くるっと裏返る動き
+      flip: rand(0, Math.PI * 2),
       flipSpeed: rand(0.02, 0.06),
       alpha: rand(CONFIG.alpha[0], CONFIG.alpha[1]),
       color: CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)],
@@ -210,11 +239,14 @@ function setupSakura() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     w = window.innerWidth;
     h = window.innerHeight;
+
     canvas.width = w * dpr;
     canvas.height = h * dpr;
+
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     const target = w < 768 ? CONFIG.countMobile : CONFIG.count;
+
     while (petals.length < target) petals.push(makePetal(true));
     petals.length = target;
   }
@@ -222,6 +254,7 @@ function setupSakura() {
   // 先端に切れ込みのある桜の花びら
   function drawPetal(p) {
     const s = p.size;
+
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rot);
@@ -236,8 +269,10 @@ function setupSakura() {
     ctx.closePath();
 
     const g = ctx.createLinearGradient(0, s * 0.6, 0, -s * 0.6);
+
     g.addColorStop(0, `rgba(255, 245, 248, ${p.alpha})`);
     g.addColorStop(1, `rgba(${p.color}, ${p.alpha})`);
+
     ctx.fillStyle = g;
     ctx.fill();
     ctx.restore();
@@ -256,12 +291,17 @@ function setupSakura() {
   }
 
   let last = 0;
+
   function loop(t) {
     const k = Math.min(50, t - last || 16) / 16;
     last = t;
 
     ctx.clearRect(0, 0, w, h);
-    petals.forEach((p) => { update(p, k); drawPetal(p); });
+
+    petals.forEach((p) => {
+      update(p, k);
+      drawPetal(p);
+    });
 
     if (!document.hidden) requestAnimationFrame(loop);
   }
@@ -276,7 +316,11 @@ function setupSakura() {
   }
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) { last = performance.now(); requestAnimationFrame(loop); }
+    if (!document.hidden) {
+      last = performance.now();
+      requestAnimationFrame(loop);
+    }
   });
+
   requestAnimationFrame(loop);
 }
